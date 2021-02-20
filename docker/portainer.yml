@@ -1,49 +1,21 @@
 version:  '3'
 
 services:
-  # portainer agent
-  portainer_agent: portainer_agent
-    # container image definition
-    image: portainer/agent:latest
-    # container name definition
-    container_name: portainer_agent
-    # network mode definition
-    network_mode: # NOT REQUIRED
-    # network mode definition
-    networks:
-      - general
-    # port mapping definition
-    ports:
-      # NOT REQUIRED
-    # volume mapping definition
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /Var/lib/docker/volumes:/var/lib/docker/volumes
-    # environment variable definintion
-    environment:
-      # NOT REQUIRED
-
-  portainer_app:
+  portainer:
     # container image definition
     image: portainer/portainer-ce:alpine
     # container name definition
     container_name: portainer_app
-    # network mode definition
-    network_mode: # NOT REQUIRED
-    # networks definitions
-    networks:
-      - general
-    # port mapping definition
+    # networks mode definition
+    network_mode: bridge
+    # command definition
+    command: -H unix:///var/run/docker.sock
+    # restart policy definition
+    restart: always
     ports:
       - "8000:8000"
       - "9000:9000"
     # volume mapping definition
     volumes:
-      - /docker-services/portainer:/data
-    # environment variable definintion
-    environment:
-      # NOT REQUIRED
-
-networks:
-  portainer:
-    external: true
+    - /docker-services/portainer:/data
+    - /var/run/docker.sock:/var/run/docker.sock
