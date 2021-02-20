@@ -6,8 +6,6 @@ services:
     image: portainer/portainer-ce:alpine
     # container name definition
     container_name: portainer_app
-    # networks mode definition
-    network_mode: bridge
     # command definition
     command: -H unix:///var/run/docker.sock
     # restart policy definition
@@ -19,3 +17,8 @@ services:
     volumes:
     - /docker-services/portainer:/data
     - /var/run/docker.sock:/var/run/docker.sock
+
+networks:
+  default:
+    external:
+      name: nproxy
