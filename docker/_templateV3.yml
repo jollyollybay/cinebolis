@@ -1,0 +1,28 @@
+version:  '3'
+
+services:
+  # service 1 details
+  service_1:
+    # container image definition
+    image: repo/image
+    # container name definition
+    container_name: my_application
+    # network mode definition
+    network_mode: bridge
+    # networks definitions
+    networks:
+      - general
+    # port mapping definition
+    ports:
+      - "80:80"
+    # volume mapping definition
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    # environment variable definintion
+    environment:
+      - PUID: 1000
+
+# WORK REQUIRED FROM HERE
+networks:
+  portainer:
+    external: true
