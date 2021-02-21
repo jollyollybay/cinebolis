@@ -1,0 +1,28 @@
+version:  '3'
+
+services:
+  plex:
+    # container image definition
+    image: ghcr.io/linuxserver/plex:latest
+    # container name definition
+    container_name: plex
+    # restart policy definition
+    restart: always
+    # port mapping definition
+    ports:
+      - "32400:32400"
+    # volume mapping definition
+    volumes:
+      - /docker-services/plex/:/config
+      - /mnt/md0/:/mnt/md0
+    # environment variable definintion
+    environment:
+      PUID: 1000
+      PGID: 1000
+      VERSION: docker
+      PLEX_CLAIM: claim-PXgS2aurkjP4me-X8DH6
+
+networks:
+  default:
+    external:
+      name: cinebolis-net

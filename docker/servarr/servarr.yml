@@ -1,0 +1,48 @@
+version:  '3'
+
+services:
+  jackett:
+    # container image definition
+    image: ghcr.io/linuxserver/jackett:latest
+    # container name definition
+    container_name: jackett
+    # restart policy definition
+    restart: always
+    # port mapping definition
+    ports:
+      - "9117:9117"
+    # volume mapping definition
+    volumes:
+      - /docker-services/jackett:/data
+      - /mnt/md0/data/torrents/complete:/downloads
+    # environment variable definintion
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Mexico_City
+      AUTO_UPDATE: 'true'
+
+  radarr:
+    # container image definition
+    image: ghcr.io/linuxserver/radarr:latest
+    # container name definition
+    container_name: radarr
+    # restart policy definition
+    restart: always
+    # port mapping definition
+    ports:
+      - "7878:7878"
+    # volume mapping definition
+    volumes:
+      - /docker-services/radarr:/data
+      - /mnt/md0/data:/mnt/md0/data
+    # environment variable definintion
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Mexico_City
+
+networks:
+  default:
+    external:
+      name: cinebolis-net

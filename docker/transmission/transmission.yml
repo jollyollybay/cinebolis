@@ -1,0 +1,32 @@
+version:  '3'
+
+services:
+  app:
+    # container image definition
+    image: ghcr.io/linuxserver/transmission:latest
+    # container name definition
+    container_name: transmission
+    # restart policy definition
+    restart: always
+    # port mapping definition
+    ports:
+      - "9091:9091"
+      - "51413:51413"
+      - "51413:51413/udp"
+    # volume mapping definition
+    volumes:
+      - /docker-services/transmission:/config
+      - /mnt/md0/data/torrents:/mnt/md0/data/torrents
+    # environment variable definintion
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: America/Mexico_City
+      TRANSMISSION_WEB_HOME: /transmission-web-control/
+      USER: jollyollybay
+      PASS: RbJ9w0CHZnCANYXp
+
+networks:
+  default:
+    external:
+      name: cinebolis-net
